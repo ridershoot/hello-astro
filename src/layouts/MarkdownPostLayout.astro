@@ -1,0 +1,12 @@
+---
+const {frontmatter} = Astro.props
+---
+<style>
+    
+</style>
+<h1>{frontmatter.title}</h1>
+<p>发表于：{frontmatter.pubDate}</p>
+<p>Written by {frontmatter.author}</p>
+<p>{frontmatter.description}</p>
+
+<slot></slot>
