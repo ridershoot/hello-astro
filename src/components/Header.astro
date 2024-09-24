@@ -1,0 +1,35 @@
+---
+// 这部分代码是静态的，页面构建完成之后就会被移除
+import Hamburger from "./Hamburger.astro";
+import Navigation from "./Navigation.astro";
+
+const navList = [
+    {
+        title: "首页",
+        link: "/"
+    },
+    {
+        title: "关于",
+        link: "/about"
+    },
+    {
+        title: "博客",
+        link: "/blog"
+    }
+]
+---
+<header>
+    <nav >
+        <Hamburger></Hamburger>
+        <div class="nav-links">
+            { 
+                navList.map(v => <Navigation title={v.title} link={v.link}></Navigation>)
+            }
+        </div>
+    </nav>
+</header>
+<script> 
+// 这部分代码是运行时代码，会被发送到浏览器
+import "../scripts/menu"
+</script>
+

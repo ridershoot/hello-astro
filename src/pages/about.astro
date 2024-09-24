@@ -1,4 +1,6 @@
 ---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
 import "../styles/global.css";
 const pageTitle = "关于我"
 
@@ -39,8 +41,7 @@ const textCase = "capitalize";
 		</style>
 	</head>
 	<body>
-		<a href="/">首页</a>
-		<a href="/blog">blogs</a>
+		<Header></Header>
 		<h1>我的 Astro 站点 - {pageTitle}</h1>
 		<h2>我正在学习使用 astro 构建我的个人站点</h2>
 
@@ -67,5 +68,6 @@ const textCase = "capitalize";
 			{ finished && <p>我已经完成了这节教程</p> }
 			{ goal === 3 ? <p>我的目标是3天内完成这份课程</p> : <p>我的目标不是3天内完成教程</p> }
 		</div>
+		<Footer></Footer>
 	</body>
 </html>

@@ -1,0 +1,31 @@
+---
+import Social from "./Social.astro";
+
+const socialList = [
+    {
+        platform: "github",
+        url: "https://github.com/ridershoot/hello-astro"
+    },
+    {
+        platform: "twitter",
+        url: `https://www.twitter.com/astrodotbuild`
+    },
+    {
+        platform: "youtube", 
+        url: `https://www.youtube.com/astrodotbuild`
+    }
+]
+---
+<footer>
+    {
+        socialList.map(v => <Social platform={v.platform} url={v.url}></Social>)
+    }
+</footer>
+
+<style>
+    footer {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
