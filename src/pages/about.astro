@@ -1,7 +1,5 @@
 ---
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "关于我"
 
 const identity = {
@@ -20,54 +18,41 @@ const skillColor = "navy";
 const fontWeight = "bold";
 const textCase = "capitalize";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle} - Astro</title>
-		<style define:vars={{skillColor, fontWeight, textCase}}>
-			h1 {
-			  color: purple;
-			  font-size: 4rem;
-			}
-			.skill {
-   			  color: var(--skillColor);
-   			  font-weight: var(--fontWeight);
-			  text-transform: var(--textCase);
- 			}
-		</style>
-	</head>
-	<body>
-		<Header></Header>
-		<h1>我的 Astro 站点 - {pageTitle}</h1>
-		<h2>我正在学习使用 astro 构建我的个人站点</h2>
-
-		<div>
-			<h2>以下是我的一些信息：</h2>
-			<p>My name is {identity.firstName}·{identity.lastName}.</p>
-			<p>I am a {identity.occupation}.</p>
-			{
-				identity.hobbies.length > 2 && 
-				<p>My hobbies is:</p>
-				<ul>
-					<li>{identity.hobbies[0]}</li>
-					<li>{identity.hobbies[1]}</li>
-				</ul>
-			}
-			<p>And i have these skills:</p>
+<style define:vars={{skillColor, fontWeight, textCase}}>
+	h1 {
+	  color: purple;
+	  font-size: 4rem;
+	}
+	.skill {
+		 color: var(--skillColor);
+		 font-weight: var(--fontWeight);
+	  text-transform: var(--textCase);
+	 }
+</style>
+<BaseLayout pageTitle={pageTitle}>
+	<h1>我的 Astro 站点 - {pageTitle}</h1>
+	<h2>我正在学习使用 astro 构建我的个人站点</h2>
+	<div>
+		<h2>以下是我的一些信息：</h2>
+		<p>My name is {identity.firstName}·{identity.lastName}.</p>
+		<p>I am a {identity.occupation}.</p>
+		{
+			identity.hobbies.length > 2 && 
+			<p>My hobbies is:</p>
 			<ul>
-				{skills.map(v => <li class="skill">{v}</li>)}
+				<li>{identity.hobbies[0]}</li>
+				<li>{identity.hobbies[1]}</li>
 			</ul>
-		</div>
-		<div>
-			<h2>条件渲染</h2>
-			{ happy && <p>我十分乐意使用 Astro 构建我的网站</p> }
-			{ finished && <p>我已经完成了这节教程</p> }
-			{ goal === 3 ? <p>我的目标是3天内完成这份课程</p> : <p>我的目标不是3天内完成教程</p> }
-		</div>
-		<Footer></Footer>
-	</body>
-</html>
+		}
+		<p>And i have these skills:</p>
+		<ul>
+			{skills.map(v => <li class="skill">{v}</li>)}
+		</ul>
+	</div>
+	<div>
+		<h2>条件渲染</h2>
+		{ happy && <p>我十分乐意使用 Astro 构建我的网站</p> }
+		{ finished && <p>我已经完成了这节教程</p> }
+		{ goal === 3 ? <p>我的目标是3天内完成这份课程</p> : <p>我的目标不是3天内完成教程</p> }
+	</div> 
+</BaseLayout>
