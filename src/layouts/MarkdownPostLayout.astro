@@ -1,21 +1,42 @@
 ---
 import BaseLayout from "./BaseLayout.astro"
 const {frontmatter} = Astro.props
+const {tags} = frontmatter
 ---
 <BaseLayout pageTitle={frontmatter.title}>
     <h1>{frontmatter.title}</h1>
     <p>发表于：{frontmatter.pubDate.toString().slice(0,10)}</p>
     <p>Written by {frontmatter.author}</p>
     <p><em>{frontmatter.description}</em></p>
-    <p>
+    <div class="tags">
         {
-            frontmatter.tags.length && 
-            frontmatter.tags.map(v => <span>{v}</span>)
+            tags.length &&
+            tags.map(v => (<p class="tag"><a href={'/tags/'+v}>{v}</a></p>))
         }
-    </p>
+    </div>
     {  
         frontmatter.image && 
         <img width="300" src={frontmatter.image.url} alt={frontmatter.image.alt}>
     }
     <slot></slot>
 </BaseLayout>
+
+<style>
+  a {
+    color: #00539F;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: .5em;
+    padding: .5em 1em;
+    font-size: 1.15em;
+    background-color: #F8FCFD;
+  }
+</style>
