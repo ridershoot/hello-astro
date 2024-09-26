@@ -3,27 +3,23 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPost from '../../components/BlogPost.astro';
 export async function getStaticPaths() {
   const blogList = await Astro.glob("../posts/*.md");
-  return [
-    { params: { tag: "astro" }, props: {posts: blogList} },
-    { params: { tag: "successes" }, props: {posts: blogList} },
-    { params: { tag: "community" }, props: {posts: blogList}  },
-    { params: { tag: "blogging" }, props: {posts: blogList}  },
-    { params: { tag: "setbacks" }, props: {posts: blogList}  },
-    { params: { tag: "learning in public" }, props: {posts: blogList}  },
-  ];
+  const uniqueTagList = blogList.reduce((pre,current) => {
+    const {frontmatter:{tags}} = current;
+    if (tags?.length) {
+      pre = new Set([...pre,...tags])
+    }
+    return Array.from(pre)
+  },[]);
+  return uniqueTagList.map(v => ({params: {tag: v},props:{posts: blogList.filter(blog => blog.frontmatter.tags.includes(v))}})) 
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-const tagPostList = posts?.filter(v => {
-    const {frontmatter} = v
-    return frontmatter?.tags.includes(tag)
-}) || []
 ---
 <BaseLayout pageTitle={tag}>
 <p>包含「{tag}」标签的文章</p>
 {
-    tagPostList.length &&
-    tagPostList.map(v => <BlogPost url={v.url} title={v.frontmatter.title}></BlogPost>)
+    posts.length &&
+    posts.map(v => <BlogPost url={v.url} title={v.frontmatter.title}></BlogPost>)
 }
 </BaseLayout>
